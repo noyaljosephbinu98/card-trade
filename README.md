@@ -128,7 +128,7 @@ AltLite/
 │   │   ├── saved/                  # persisted Set<id> + Saved components + SavedScreen
 │   │   ├── profile/                # profile screens (logout / edit)
 │   │   └── theme/                  # palettes, tokens, useTheme, toggle, appearance picker
-│   ├── hooks/                      # useDebouncedValue
+│   ├── hooks/                      # useDebouncedValue, useImagePrefetch
 │   ├── types/                      # ambient module declarations
 │   └── utils/                      # formatters
 ├── .cursor/
@@ -150,6 +150,7 @@ Features are colocated: a feature owns its store, its components, and its screen
 - Search input is debounced 250 ms via `useDebouncedValue` before it's pushed into the filters store — typing does not refilter on every keystroke.
 - Theme-dependent styles live behind `useMemo(() => makeStyles(theme), [theme])`; the `NavigationContainer` theme object is memoized too, so identity only changes when the resolved mode flips.
 - React Query `select: normalizeListings` memoizes the normalized array per subscriber.
+- `SavedScreen` calls `useImagePrefetch(topSavedImageUrls, 12)` on mount so the first-12 images are already in the native image cache before the user scrolls, eliminating the usual blank-thumbnail flash on re-open.
 
 ---
 
