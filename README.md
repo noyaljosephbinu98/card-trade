@@ -2,7 +2,9 @@
 
 An Alt-lite sports-card marketplace app built with bare React Native CLI + TypeScript. Submitted as a take-home.
 
-> This repo satisfies the required feature set (Home + Profile tabs, saved listings, search & filter, password auth, scheme-based deep links for `/search`, `/saved`, and `/listing/:id`) and adds a memoization-disciplined `FlatList` (list + grid), light / dark / system theming, a typed navigation graph, and a themed vector-icon primitive.
+> This repo satisfies the required feature set (Home + Profile tabs, saved listings, search & filter, password auth with **in-app password change**, scheme-based deep links for `/search`, `/saved`, and `/listing/:id`) and adds a memoization-disciplined `FlatList` (list + grid), light / dark / system theming, a typed navigation graph, and a themed vector-icon primitive.
+>
+> **AI configs ship inside the submission.** The `.cursor/rules/` (8 `.mdc` files) and `.cursor/skills/` (5 `SKILL.md` files) folders at the repo root are the AI configs used during this build — they are tracked in git and included in any ZIP download, per the prompt's "AI skills, readmes, or configs" requirement. See Section 6 for details.
 
 ---
 
@@ -157,6 +159,7 @@ Features are colocated: a feature owns its store, its components, and its screen
 - **Zustand + React Query over Redux Toolkit.** Zero boilerplate, idiomatic selectors, `persist` middleware handles AsyncStorage. React Query owns the network cache (normalization via `select`, 10-minute `staleTime`).
 - **Feature-folder layout.** Features outlive screens; `ListingCard` is reused across Home and Saved. Pure-logic modules are unit-tested.
 - **Local auth with `js-sha256` + random salt + pepper, iterated 10,000 times.** The plan pointed at `scrypt-js` for better resistance, but `js-sha256` is lighter and the iteration loop still frustrates trivial offline attacks on AsyncStorage. `api/client.ts` already returns API-shaped JSON so swapping to a real `/auth/login` endpoint is a one-file change.
+- **In-app account management on `EditProfileScreen`.** Two zod-validated forms stacked on one screen: a **profile form** (display name + email, `profileUpdateSchema`) and a **password-change form** (current / new / confirm with show-hide toggles, `passwordChangeSchema`). Both dispatch to `useAuthStore.updateProfile` / `useAuthStore.changePassword` respectively, with the current-password re-hash check on the store side. Reachable from Profile → "Edit account".
 - **Discriminated union for `Listing` (`FIXED_PRICE | AUCTION`).** Normalization merges the two S3 arrays into one renderable shape; `listingPrice(l)` is the single cross-kind accessor.
 - **Deep links as `route.params → filters store`.** UI state and URL state share one source of truth; the parser sanitizes params with zod before replacing filters.
 - **Light / dark / system theming.** `useTheme()` resolves store mode + `useColorScheme()`; `NavigationContainer theme`, `StatusBar barStyle`, and every primitive are wired through a single object. Toggle icon lives on Home; three-way picker in Profile.
