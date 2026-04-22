@@ -41,7 +41,8 @@ export const ThemeToggleButton = React.memo(function ThemeToggleButton() {
       style={styles.button}
       hitSlop={8}
       accessibilityRole="button"
-      accessibilityLabel={label}>
+      accessibilityLabel={label}
+    >
       <Icon name={isDark ? 'sunny-outline' : 'moon-outline'} size={18} color={theme.colors.text} />
     </Pressable>
   );

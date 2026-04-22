@@ -24,7 +24,8 @@ export function HomeStack() {
         },
         contentStyle: { backgroundColor: theme.colors.bg },
         headerBackTitle: '',
-      }}>
+      }}
+    >
       <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Marketplace' }} />
       <Stack.Screen
         name="ListingDetail"

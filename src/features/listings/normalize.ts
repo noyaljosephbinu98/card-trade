@@ -30,8 +30,8 @@ export type RawListingsPayload = {
 
 function pickFrontImage(images: RawImage[] | null | undefined): string | null {
   if (!Array.isArray(images) || images.length === 0) return null;
-  const front = images.find((i) => i?.position === 'FRONT');
-  return (front?.url ?? images[0]?.url) ?? null;
+  const front = images.find(i => i?.position === 'FRONT');
+  return front?.url ?? images[0]?.url ?? null;
 }
 
 function normalizeOne(raw: RawListing, kind: 'FIXED_PRICE' | 'AUCTION'): Listing | null {
@@ -72,10 +72,10 @@ function normalizeOne(raw: RawListing, kind: 'FIXED_PRICE' | 'AUCTION'): Listing
 export function normalizeListings(payload: RawListingsPayload | undefined | null): Listing[] {
   if (!payload) return [];
   const fixed = (payload.fixedPriceListings ?? [])
-    .map((r) => normalizeOne(r, 'FIXED_PRICE'))
+    .map(r => normalizeOne(r, 'FIXED_PRICE'))
     .filter((x): x is Listing => x != null);
   const auctions = (payload.auctionListings ?? [])
-    .map((r) => normalizeOne(r, 'AUCTION'))
+    .map(r => normalizeOne(r, 'AUCTION'))
     .filter((x): x is Listing => x != null);
   return [...fixed, ...auctions];
 }

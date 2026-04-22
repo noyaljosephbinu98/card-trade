@@ -25,7 +25,8 @@ export function ProfileStack() {
         },
         contentStyle: { backgroundColor: theme.colors.bg },
         headerBackTitle: '',
-      }}>
+      }}
+    >
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}

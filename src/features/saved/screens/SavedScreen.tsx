@@ -27,18 +27,12 @@ export function SavedScreen() {
   const theme = useTheme();
   const navigation = useNavigation<SavedNavProp>();
   const { data, isLoading, isError, refetch, isRefetching } = useListingsQuery();
-  const savedIds = useSavedStore((s) => s.ids);
-  const hasHydrated = useSavedStore((s) => s.hasHydrated);
+  const savedIds = useSavedStore(s => s.ids);
+  const hasHydrated = useSavedStore(s => s.hasHydrated);
 
-  const saved = useMemo(
-    () => (data ?? []).filter((l) => savedIds.has(l.id)),
-    [data, savedIds],
-  );
+  const saved = useMemo(() => (data ?? []).filter(l => savedIds.has(l.id)), [data, savedIds]);
 
-  const topSavedImageUrls = useMemo(
-    () => saved.slice(0, 12).map((l) => l.imageUrl),
-    [saved],
-  );
+  const topSavedImageUrls = useMemo(() => saved.slice(0, 12).map(l => l.imageUrl), [saved]);
   useImagePrefetch(topSavedImageUrls, 12);
 
   const styles = useMemo(

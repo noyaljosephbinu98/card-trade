@@ -81,8 +81,7 @@ export const ListingList = React.memo(function ListingList({
   // Square tile image height === tile width. Derived from the window so rotation
   // or iPad split-view recomputes the row height without re-measuring in layout.
   const gridRowHeight = useMemo(() => {
-    const tileWidth =
-      (windowWidth - theme.spacing.xl * 2 - theme.spacing.md) / 2;
+    const tileWidth = (windowWidth - theme.spacing.xl * 2 - theme.spacing.md) / 2;
     return tileWidth + TILE_BODY_HEIGHT + TILE_BORDER + theme.spacing.md;
   }, [windowWidth, theme.spacing.xl, theme.spacing.md]);
 

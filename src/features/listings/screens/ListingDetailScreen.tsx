@@ -25,12 +25,12 @@ export function ListingDetailScreen({ route, navigation }: Props) {
   const theme = useTheme();
   const { data, isLoading, isError, refetch } = useListingsQuery();
   const listing = useMemo<Listing | undefined>(
-    () => data?.find((l) => l.id === route.params.id),
+    () => data?.find(l => l.id === route.params.id),
     [data, route.params.id],
   );
 
   const isSaved = useIsSaved(route.params.id);
-  const toggleSaved = useSavedStore((s) => s.toggle);
+  const toggleSaved = useSavedStore(s => s.toggle);
 
   const onToggleSave = useCallback(
     () => toggleSaved(route.params.id),
@@ -67,9 +67,7 @@ export function ListingDetailScreen({ route, navigation }: Props) {
 
   const altValueLabel = useMemo(
     () =>
-      listing?.altValue != null
-        ? `Alt value · $${listing.altValue.toLocaleString('en-US')}`
-        : null,
+      listing?.altValue != null ? `Alt value · $${listing.altValue.toLocaleString('en-US')}` : null,
     [listing?.altValue],
   );
 
@@ -80,8 +78,8 @@ export function ListingDetailScreen({ route, navigation }: Props) {
       ? theme.colors.danger
       : theme.colors.text
     : isSaved
-      ? theme.colors.danger
-      : theme.colors.onPrimary;
+    ? theme.colors.danger
+    : theme.colors.onPrimary;
 
   const saveRightAdornment = useMemo(
     () => <Icon name={isSaved ? 'heart' : 'heart-outline'} size={18} color={saveIconColor} />,
@@ -121,7 +119,8 @@ export function ListingDetailScreen({ route, navigation }: Props) {
     <ScrollView
       style={styles.container}
       contentContainerStyle={styles.content}
-      showsVerticalScrollIndicator={false}>
+      showsVerticalScrollIndicator={false}
+    >
       {listing.imageUrl ? (
         <Image source={{ uri: listing.imageUrl }} style={styles.image} resizeMode="cover" />
       ) : (
@@ -148,10 +147,7 @@ export function ListingDetailScreen({ route, navigation }: Props) {
             />
           ) : null}
           {altValueLabel ? (
-            <Chip
-              label={altValueLabel}
-              accessibilityLabel={`Alt value ${listing.altValue}`}
-            />
+            <Chip label={altValueLabel} accessibilityLabel={`Alt value ${listing.altValue}`} />
           ) : null}
         </View>
       ) : null}
@@ -187,7 +183,8 @@ function DetailSkeleton() {
     <View
       style={styles.container}
       accessibilityRole="progressbar"
-      accessibilityLabel="Loading listing">
+      accessibilityLabel="Loading listing"
+    >
       <View style={styles.content}>
         <View style={styles.skeletonImage}>
           <Skeleton height={350} radius={theme.radius.lg} tone="elevated" />

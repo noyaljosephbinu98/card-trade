@@ -10,7 +10,12 @@ type Props = {
   accessibilityLabel?: string;
 };
 
-export const Chip = React.memo(function Chip({ label, active, onPress, accessibilityLabel }: Props) {
+export const Chip = React.memo(function Chip({
+  label,
+  active,
+  onPress,
+  accessibilityLabel,
+}: Props) {
   const theme = useTheme();
 
   const styles = useMemo(
@@ -45,7 +50,8 @@ export const Chip = React.memo(function Chip({ label, active, onPress, accessibi
       style={[styles.base, active && styles.active]}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel ?? label}
-      accessibilityState={{ selected: !!active }}>
+      accessibilityState={{ selected: !!active }}
+    >
       <Text style={[styles.label, active && styles.labelActive]}>{label}</Text>
     </Pressable>
   );

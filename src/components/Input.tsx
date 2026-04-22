@@ -99,17 +99,18 @@ export function Input({
           styles.field,
           focused && !error ? styles.fieldFocused : null,
           error ? styles.fieldError : null,
-        ]}>
+        ]}
+      >
         {leftAdornment ? <View style={styles.leftSlot}>{leftAdornment}</View> : null}
         <TextInput
           placeholderTextColor={theme.colors.textTertiary}
           selectionColor={theme.colors.primary}
           {...rest}
-          onFocus={(e) => {
+          onFocus={e => {
             setFocused(true);
             onFocus?.(e);
           }}
-          onBlur={(e) => {
+          onBlur={e => {
             setFocused(false);
             onBlur?.(e);
           }}

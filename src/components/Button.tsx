@@ -81,28 +81,28 @@ export function Button({
     variant === 'primary'
       ? styles.primary
       : variant === 'danger'
-        ? styles.danger
-        : variant === 'ghost'
-          ? styles.ghost
-          : styles.secondary;
+      ? styles.danger
+      : variant === 'ghost'
+      ? styles.ghost
+      : styles.secondary;
 
   const labelStyle =
     variant === 'primary'
       ? styles.labelOnPrimary
       : variant === 'danger'
-        ? styles.labelOnDanger
-        : variant === 'ghost'
-          ? styles.labelOnGhost
-          : styles.labelOnSecondary;
+      ? styles.labelOnDanger
+      : variant === 'ghost'
+      ? styles.labelOnGhost
+      : styles.labelOnSecondary;
 
   const spinnerColor =
     variant === 'primary'
       ? theme.colors.onPrimary
       : variant === 'danger'
-        ? '#FFFFFF'
-        : variant === 'ghost'
-          ? theme.colors.primary
-          : theme.colors.text;
+      ? '#FFFFFF'
+      : variant === 'ghost'
+      ? theme.colors.primary
+      : theme.colors.text;
 
   return (
     <Pressable
@@ -111,7 +111,8 @@ export function Button({
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel ?? title}
       accessibilityState={{ disabled: !!isDisabled, busy: !!loading }}
-      style={[styles.base, variantStyle, isDisabled && styles.disabled, style]}>
+      style={[styles.base, variantStyle, isDisabled && styles.disabled, style]}
+    >
       {loading ? (
         <ActivityIndicator color={spinnerColor} />
       ) : (

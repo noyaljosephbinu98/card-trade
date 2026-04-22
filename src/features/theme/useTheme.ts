@@ -15,16 +15,13 @@ export type Theme = {
 
 export type SystemScheme = 'light' | 'dark' | 'unspecified' | null | undefined;
 
-export function resolveMode(
-  mode: 'system' | 'light' | 'dark',
-  system: SystemScheme,
-): ResolvedMode {
+export function resolveMode(mode: 'system' | 'light' | 'dark', system: SystemScheme): ResolvedMode {
   if (mode === 'system') return system === 'dark' ? 'dark' : 'light';
   return mode;
 }
 
 export function useTheme(): Theme {
-  const mode = useThemeStore((s) => s.mode);
+  const mode = useThemeStore(s => s.mode);
   const system = useColorScheme();
   const resolved = resolveMode(mode, system);
 
@@ -41,7 +38,7 @@ export function useTheme(): Theme {
 }
 
 export function useResolvedMode(): ResolvedMode {
-  const mode = useThemeStore((s) => s.mode);
+  const mode = useThemeStore(s => s.mode);
   const system = useColorScheme();
   return resolveMode(mode, system);
 }

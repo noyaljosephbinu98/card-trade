@@ -15,19 +15,18 @@ type ThemeState = {
 
 export const useThemeStore = create<ThemeState>()(
   persist(
-    (set) => ({
+    set => ({
       mode: 'system',
       hasHydrated: false,
-      setMode: (mode) => set({ mode }),
-      toggle: (currentResolved) =>
-        set({ mode: currentResolved === 'dark' ? 'light' : 'dark' }),
-      _setHasHydrated: (v) => set({ hasHydrated: v }),
+      setMode: mode => set({ mode }),
+      toggle: currentResolved => set({ mode: currentResolved === 'dark' ? 'light' : 'dark' }),
+      _setHasHydrated: v => set({ hasHydrated: v }),
     }),
     {
       name: 'altlite-theme',
       storage: createJSONStorage(() => AsyncStorage),
-      partialize: (state) => ({ mode: state.mode }),
-      onRehydrateStorage: () => (state) => {
+      partialize: state => ({ mode: state.mode }),
+      onRehydrateStorage: () => state => {
         state?._setHasHydrated(true);
       },
     },

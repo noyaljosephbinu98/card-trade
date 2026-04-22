@@ -31,8 +31,8 @@ describe('normalizeListings', () => {
       ],
     });
     expect(out).toHaveLength(2);
-    const fixed = out.find((l) => l.id === 'f1');
-    const auction = out.find((l) => l.id === 'a1');
+    const fixed = out.find(l => l.id === 'f1');
+    const auction = out.find(l => l.id === 'a1');
     expect(fixed?.kind).toBe('FIXED_PRICE');
     if (fixed?.kind === 'FIXED_PRICE') expect(fixed.price).toBe(50);
     expect(auction?.kind).toBe('AUCTION');

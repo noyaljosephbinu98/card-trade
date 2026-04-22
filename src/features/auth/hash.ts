@@ -13,7 +13,7 @@ export function generateSalt(): string {
     bytes[i] = Math.floor(Math.random() * 256);
   }
   return Array.from(bytes)
-    .map((b) => b.toString(16).padStart(2, '0'))
+    .map(b => b.toString(16).padStart(2, '0'))
     .join('');
 }
 
@@ -74,5 +74,5 @@ function constantTimeEquals(a: string, b: string): boolean {
 }
 
 function yieldToEventLoop(): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, 0));
+  return new Promise(resolve => setTimeout(resolve, 0));
 }

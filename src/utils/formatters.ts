@@ -15,7 +15,7 @@ export function formatCategoryLabel(category: string): string {
   return category
     .toLowerCase()
     .split('_')
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ')
     .replace(/ Cards$/, '');
 }

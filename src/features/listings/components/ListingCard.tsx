@@ -97,7 +97,7 @@ export const ListingCard = React.memo(
     const theme = useTheme();
     const styles = useMemo(() => makeStyles(theme), [theme]);
     const isSaved = useIsSaved(listing.id);
-    const toggleSaved = useSavedStore((s) => s.toggle);
+    const toggleSaved = useSavedStore(s => s.toggle);
 
     const handlePress = useCallback(() => onPressId(listing.id), [listing.id, onPressId]);
     const handleToggleSave = useCallback(() => toggleSaved(listing.id), [toggleSaved, listing.id]);
@@ -112,10 +112,7 @@ export const ListingCard = React.memo(
       [listing],
     );
 
-    const categoryLabel = useMemo(
-      () => formatCategoryLabel(listing.category),
-      [listing.category],
-    );
+    const categoryLabel = useMemo(() => formatCategoryLabel(listing.category), [listing.category]);
 
     const meta = useMemo(() => {
       const parts: string[] = [];
@@ -141,7 +138,8 @@ export const ListingCard = React.memo(
         onPress={handlePress}
         style={({ pressed }) => [styles.container, pressed && styles.pressed]}
         accessibilityRole="button"
-        accessibilityLabel={accessibilityLabel}>
+        accessibilityLabel={accessibilityLabel}
+      >
         {listing.imageUrl ? (
           <Image source={{ uri: listing.imageUrl }} style={styles.image} resizeMode="cover" />
         ) : (
@@ -169,7 +167,8 @@ export const ListingCard = React.memo(
               style={styles.saveButton}
               accessibilityRole="button"
               accessibilityLabel={saveLabel}
-              accessibilityState={{ selected: isSaved }}>
+              accessibilityState={{ selected: isSaved }}
+            >
               <Icon
                 name={isSaved ? 'heart' : 'heart-outline'}
                 size={18}

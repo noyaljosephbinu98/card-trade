@@ -18,10 +18,7 @@ type Props = {
  * post-login link replay). Reads from the active theme so the status bar
  * and chrome stay coherent across light/dark.
  */
-export const SplashScreen = React.memo(function SplashScreen({
-  label,
-  compact = false,
-}: Props) {
+export const SplashScreen = React.memo(function SplashScreen({ label, compact = false }: Props) {
   const theme = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -29,7 +26,8 @@ export const SplashScreen = React.memo(function SplashScreen({
     <View
       style={styles.root}
       accessibilityRole="progressbar"
-      accessibilityLabel={label ?? 'Loading'}>
+      accessibilityLabel={label ?? 'Loading'}
+    >
       {compact ? null : <Text style={styles.wordmark}>AltLite</Text>}
       <ActivityIndicator size="large" color={theme.colors.primary} />
       {label ? <Text style={styles.label}>{label}</Text> : null}

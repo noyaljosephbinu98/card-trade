@@ -81,7 +81,8 @@ export const SavedHeaderButton = React.memo(function SavedHeaderButton() {
       style={styles.button}
       hitSlop={8}
       accessibilityRole="button"
-      accessibilityLabel={`Saved listings, ${savedCount} ${savedCount === 1 ? 'item' : 'items'}`}>
+      accessibilityLabel={`Saved listings, ${savedCount} ${savedCount === 1 ? 'item' : 'items'}`}
+    >
       <Icon name="heart" size={18} color={theme.colors.danger} />
       <View style={styles.badge}>
         <Text style={styles.badgeText}>{shown}</Text>

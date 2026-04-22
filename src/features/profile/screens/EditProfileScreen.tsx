@@ -31,8 +31,8 @@ type Props = NativeStackScreenProps<ProfileStackParamList, 'EditProfile'>;
 export function EditProfileScreen({ navigation }: Props) {
   const theme = useTheme();
   const user = useCurrentUser();
-  const updateProfile = useAuthStore((s) => s.updateProfile);
-  const changePassword = useAuthStore((s) => s.changePassword);
+  const updateProfile = useAuthStore(s => s.updateProfile);
+  const changePassword = useAuthStore(s => s.changePassword);
 
   const [submittingProfile, setSubmittingProfile] = useState(false);
   const [submittingPassword, setSubmittingPassword] = useState(false);
@@ -112,7 +112,8 @@ export function EditProfileScreen({ navigation }: Props) {
       hitSlop={8}
       accessibilityRole="button"
       accessibilityState={{ selected: visible }}
-      accessibilityLabel={visible ? `Hide ${labelFor}` : `Show ${labelFor}`}>
+      accessibilityLabel={visible ? `Hide ${labelFor}` : `Show ${labelFor}`}
+    >
       <Text style={styles.toggleText}>{visible ? 'Hide' : 'Show'}</Text>
     </Pressable>
   );
@@ -121,11 +122,13 @@ export function EditProfileScreen({ navigation }: Props) {
     <SafeAreaView style={styles.safe} edges={['bottom']}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={styles.flex}>
+        style={styles.flex}
+      >
         <ScrollView
           contentContainerStyle={styles.content}
           keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}>
+          showsVerticalScrollIndicator={false}
+        >
           <Text style={styles.title}>Account details</Text>
           <Text style={styles.subtitle}>
             These show up across your AltLite listings and portfolio.
@@ -242,7 +245,11 @@ export function EditProfileScreen({ navigation }: Props) {
                   placeholder="••••••••"
                   returnKeyType="go"
                   onSubmitEditing={handlePasswordSubmit(onChangePassword)}
-                  rightAdornment={renderToggle(showConfirm, setShowConfirm, 'confirmation password')}
+                  rightAdornment={renderToggle(
+                    showConfirm,
+                    setShowConfirm,
+                    'confirmation password',
+                  )}
                 />
               )}
             />

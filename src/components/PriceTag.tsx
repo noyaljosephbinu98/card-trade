@@ -1,5 +1,12 @@
 import React, { useMemo } from 'react';
-import { StyleSheet, Text, View, type StyleProp, type TextStyle, type ViewStyle } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  type StyleProp,
+  type TextStyle,
+  type ViewStyle,
+} from 'react-native';
 
 import { useTheme } from '@/features/theme';
 import { formatCurrency } from '@/utils/formatters';
@@ -32,8 +39,8 @@ export function PriceTag({
       size === 'lg'
         ? { ...theme.typography.display, fontSize: 28, lineHeight: 32 }
         : size === 'sm'
-          ? { ...theme.typography.price, fontSize: 16, lineHeight: 20 }
-          : theme.typography.price;
+        ? { ...theme.typography.price, fontSize: 16, lineHeight: 20 }
+        : theme.typography.price;
 
     return StyleSheet.create({
       wrap: {

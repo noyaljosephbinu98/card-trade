@@ -9,15 +9,7 @@ function matchesQueryLowered(l: Listing, needle: string): boolean {
 }
 
 export function applyFilters(listings: readonly Listing[], filters: Filters): Listing[] {
-  const {
-    q,
-    category,
-    kind,
-    minPrice,
-    maxPrice,
-    gradingCompany,
-    sort,
-  } = filters;
+  const { q, category, kind, minPrice, maxPrice, gradingCompany, sort } = filters;
 
   const needle = q ? q.toLowerCase() : '';
   const hasCategory = category != null;
@@ -52,7 +44,7 @@ export function applyFilters(listings: readonly Listing[], filters: Filters): Li
       return filtered.sort((a, b) => (b.altValue ?? 0) - (a.altValue ?? 0));
     case 'price-asc':
     case 'price-desc': {
-      const decorated = filtered.map<[Listing, number]>((l) => [l, listingPrice(l)]);
+      const decorated = filtered.map<[Listing, number]>(l => [l, listingPrice(l)]);
       const dir = sort === 'price-asc' ? 1 : -1;
       decorated.sort((a, b) => (a[1] - b[1]) * dir);
       for (let i = 0; i < decorated.length; i++) {
@@ -67,11 +59,11 @@ export function applyFilters(listings: readonly Listing[], filters: Filters): Li
 }
 
 export function uniqueCategories(listings: readonly Listing[]): string[] {
-  return Array.from(new Set(listings.map((l) => l.category))).sort();
+  return Array.from(new Set(listings.map(l => l.category))).sort();
 }
 
 export function uniqueGradingCompanies(listings: readonly Listing[]): string[] {
   return Array.from(
-    new Set(listings.map((l) => l.gradingCompany).filter((x): x is string => !!x)),
+    new Set(listings.map(l => l.gradingCompany).filter((x): x is string => !!x)),
   ).sort();
 }

@@ -25,9 +25,9 @@ export function HomeScreen({ navigation, route }: Props) {
   const theme = useTheme();
   const { data, isLoading, isError, refetch, isRefetching } = useListingsQuery();
 
-  const filters = useFiltersStore((s) => s.filters);
-  const replaceFilters = useFiltersStore((s) => s.replaceFilters);
-  const setFilters = useFiltersStore((s) => s.setFilters);
+  const filters = useFiltersStore(s => s.filters);
+  const replaceFilters = useFiltersStore(s => s.replaceFilters);
+  const setFilters = useFiltersStore(s => s.setFilters);
 
   const [localQuery, setLocalQuery] = useState<string>(filters.q);
   const debouncedQuery = useDebouncedValue(localQuery, 250);

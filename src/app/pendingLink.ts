@@ -8,7 +8,7 @@ type State = {
 
 export const usePendingLinkStore = create<State>((set, get) => ({
   pendingUrl: null,
-  setPending: (url) => set({ pendingUrl: url }),
+  setPending: url => set({ pendingUrl: url }),
   consume: () => {
     const { pendingUrl } = get();
     if (pendingUrl) set({ pendingUrl: null });

@@ -99,7 +99,7 @@ export const useAuthStore = create<AuthState>()(
 
       logout: () => set({ currentUserId: null }),
 
-      updateProfile: (patch) => {
+      updateProfile: patch => {
         const { users, currentUserId } = get();
         if (!currentUserId) throw new Error('Not signed in');
         const entry = Object.entries(users).find(([, u]) => u.id === currentUserId);
@@ -130,11 +130,7 @@ export const useAuthStore = create<AuthState>()(
         if (!entry) throw new Error('User record missing');
         const [key, record] = entry;
         // Two async hashes here — verify the old password, hash the new one.
-        const ok = await verifyPasswordAsync(
-          currentPassword,
-          record.salt,
-          record.passwordHash,
-        );
+        const ok = await verifyPasswordAsync(currentPassword, record.salt, record.passwordHash);
         if (!ok) throw new Error('Current password is incorrect');
         const salt = generateSalt();
         const passwordHash = await hashPasswordAsync(newPassword, salt);
@@ -146,17 +142,17 @@ export const useAuthStore = create<AuthState>()(
       currentUser: () => {
         const { users, currentUserId } = get();
         if (!currentUserId) return null;
-        const found = Object.values(users).find((u) => u.id === currentUserId);
+        const found = Object.values(users).find(u => u.id === currentUserId);
         return found ? toPublic(found) : null;
       },
 
-      _setHasHydrated: (v) => set({ hasHydrated: v }),
+      _setHasHydrated: v => set({ hasHydrated: v }),
     }),
     {
       name: 'altlite-auth',
       storage: createJSONStorage(() => AsyncStorage),
-      partialize: (state) => ({ users: state.users, currentUserId: state.currentUserId }),
-      onRehydrateStorage: () => (state) => {
+      partialize: state => ({ users: state.users, currentUserId: state.currentUserId }),
+      onRehydrateStorage: () => state => {
         state?._setHasHydrated(true);
       },
     },
@@ -164,9 +160,9 @@ export const useAuthStore = create<AuthState>()(
 );
 
 export function useCurrentUser(): PublicUser | null {
-  const users = useAuthStore((s) => s.users);
-  const currentUserId = useAuthStore((s) => s.currentUserId);
+  const users = useAuthStore(s => s.users);
+  const currentUserId = useAuthStore(s => s.currentUserId);
   if (!currentUserId) return null;
-  const record = Object.values(users).find((u) => u.id === currentUserId);
+  const record = Object.values(users).find(u => u.id === currentUserId);
   return record ? toPublic(record) : null;
 }

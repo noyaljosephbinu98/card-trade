@@ -115,7 +115,8 @@ export const SearchBar = React.memo(function SearchBar({
             onPress={handleClear}
             hitSlop={8}
             accessibilityLabel="Clear search"
-            accessibilityRole="button">
+            accessibilityRole="button"
+          >
             <Text style={styles.clear}>Clear</Text>
           </Pressable>
         ) : null}
@@ -124,9 +125,8 @@ export const SearchBar = React.memo(function SearchBar({
         onPress={onOpenFilters}
         style={[styles.filterButton, active && styles.filterButtonActive]}
         accessibilityRole="button"
-        accessibilityLabel={
-          active ? `Open filters, ${activeFilterCount} active` : 'Open filters'
-        }>
+        accessibilityLabel={active ? `Open filters, ${activeFilterCount} active` : 'Open filters'}
+      >
         <Icon
           name="options-outline"
           size={18}

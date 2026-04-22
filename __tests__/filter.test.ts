@@ -41,38 +41,38 @@ sample[3]!.itemName = 'Trout';
 describe('applyFilters', () => {
   it('returns all with defaults sorted by newest', () => {
     const out = applyFilters(sample, DEFAULT_FILTERS);
-    expect(out.map((l) => l.id)).toEqual(['a', 'b', 'c', 'd']);
+    expect(out.map(l => l.id)).toEqual(['a', 'b', 'c', 'd']);
   });
 
   it('filters by free-text query across itemName', () => {
     const out = applyFilters(sample, { ...DEFAULT_FILTERS, q: 'mahomes' });
-    expect(out.map((l) => l.id).sort()).toEqual(['a', 'c']);
+    expect(out.map(l => l.id).sort()).toEqual(['a', 'c']);
   });
 
   it('filters by category', () => {
     const out = applyFilters(sample, { ...DEFAULT_FILTERS, category: 'FOOTBALL_CARDS' });
-    expect(out.every((l) => l.category === 'FOOTBALL_CARDS')).toBe(true);
+    expect(out.every(l => l.category === 'FOOTBALL_CARDS')).toBe(true);
   });
 
   it('filters by price range using listingPrice', () => {
     const out = applyFilters(sample, { ...DEFAULT_FILTERS, minPrice: 40, maxPrice: 100 });
-    expect(out.map((l) => l.id).sort()).toEqual(['b', 'd']);
+    expect(out.map(l => l.id).sort()).toEqual(['b', 'd']);
   });
 
   it('filters by kind AUCTION', () => {
     const out = applyFilters(sample, { ...DEFAULT_FILTERS, kind: 'AUCTION' });
-    expect(out.map((l) => l.id)).toEqual(['d']);
+    expect(out.map(l => l.id)).toEqual(['d']);
   });
 
   it('sorts price-asc / price-desc / altValue-desc', () => {
     const asc = applyFilters(sample, { ...DEFAULT_FILTERS, sort: 'price-asc' });
-    expect(asc.map((l) => l.id)).toEqual(['a', 'b', 'd', 'c']);
+    expect(asc.map(l => l.id)).toEqual(['a', 'b', 'd', 'c']);
 
     const desc = applyFilters(sample, { ...DEFAULT_FILTERS, sort: 'price-desc' });
-    expect(desc.map((l) => l.id)).toEqual(['c', 'd', 'b', 'a']);
+    expect(desc.map(l => l.id)).toEqual(['c', 'd', 'b', 'a']);
 
     const alt = applyFilters(sample, { ...DEFAULT_FILTERS, sort: 'altValue-desc' });
-    expect(alt.slice(0, 2).map((l) => l.id)).toEqual(['b', 'c']);
+    expect(alt.slice(0, 2).map(l => l.id)).toEqual(['b', 'c']);
   });
 
   it('uniqueCategories returns sorted distinct values', () => {

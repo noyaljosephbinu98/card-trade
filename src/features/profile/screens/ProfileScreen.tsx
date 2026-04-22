@@ -10,12 +10,7 @@ import type { HomeStackParamList, MainTabParamList, ProfileStackParamList } from
 import { Button, Icon, Skeleton } from '@/components';
 import { useAuthStore, useCurrentUser } from '@/features/auth';
 import { useSavedCount } from '@/features/saved/store';
-import {
-  AppearancePicker,
-  ThemeToggleButton,
-  useTheme,
-  type Theme,
-} from '@/features/theme';
+import { AppearancePicker, ThemeToggleButton, useTheme, type Theme } from '@/features/theme';
 
 type ProfileNav = CompositeNavigationProp<
   NativeStackNavigationProp<ProfileStackParamList, 'Profile'>,
@@ -29,7 +24,7 @@ export function ProfileScreen() {
   const theme = useTheme();
   const navigation = useNavigation<ProfileNav>();
   const user = useCurrentUser();
-  const logout = useAuthStore((s) => s.logout);
+  const logout = useAuthStore(s => s.logout);
   const savedCount = useSavedCount();
   const [loggingOut, setLoggingOut] = useState(false);
 
@@ -91,7 +86,8 @@ export function ProfileScreen() {
             style={({ pressed }) => [styles.row, styles.rowTop, pressed && styles.rowPressed]}
             onPress={goEdit}
             accessibilityRole="button"
-            accessibilityLabel="Edit profile">
+            accessibilityLabel="Edit profile"
+          >
             <Text style={styles.rowLabel}>Edit profile</Text>
             <Icon name="chevron-forward" size={18} color={theme.colors.textTertiary} />
           </Pressable>
@@ -100,7 +96,8 @@ export function ProfileScreen() {
             style={({ pressed }) => [styles.row, styles.rowBottom, pressed && styles.rowPressed]}
             onPress={goSaved}
             accessibilityRole="button"
-            accessibilityLabel={`Saved listings, ${savedCount} items`}>
+            accessibilityLabel={`Saved listings, ${savedCount} items`}
+          >
             <Text style={styles.rowLabel}>Saved listings</Text>
             <View style={styles.rowRight}>
               <Text style={styles.rowValue}>{savedCount}</Text>
@@ -130,7 +127,9 @@ export function ProfileScreen() {
 function ProfileHeaderSkeleton() {
   const theme = useTheme();
   return (
-    <View style={{ alignItems: 'center', paddingVertical: theme.spacing.xxxl, gap: theme.spacing.md }}>
+    <View
+      style={{ alignItems: 'center', paddingVertical: theme.spacing.xxxl, gap: theme.spacing.md }}
+    >
       <Skeleton width={80} height={80} radius={40} tone="elevated" />
       <Skeleton width={180} height={28} />
       <Skeleton width={220} height={16} />

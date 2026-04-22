@@ -70,7 +70,12 @@ export const ListingCardSkeleton = React.memo(function ListingCardSkeleton() {
   const styles = useMemo(() => makeStyles(theme), [theme]);
 
   return (
-    <View style={styles.container} accessible accessibilityLabel="Loading listing" accessibilityRole="progressbar">
+    <View
+      style={styles.container}
+      accessible
+      accessibilityLabel="Loading listing"
+      accessibilityRole="progressbar"
+    >
       <Skeleton style={styles.image} radius={theme.radius.md} tone="elevated" />
       <View style={styles.body}>
         <View style={styles.topStack}>
@@ -131,18 +136,14 @@ export const ListingTileSkeletonGrid = React.memo(function ListingTileSkeletonGr
     <View
       style={styles.gridWrap}
       accessibilityRole="progressbar"
-      accessibilityLabel="Loading listings">
+      accessibilityLabel="Loading listings"
+    >
       {Array.from({ length: rows }).map((_, rowIdx) => (
         <View key={rowIdx} style={styles.gridRow}>
           <ListingTileSkeleton />
-          {rowIdx * 2 + 1 < count ? (
-            <ListingTileSkeleton />
-          ) : (
-            <View style={styles.tile} />
-          )}
+          {rowIdx * 2 + 1 < count ? <ListingTileSkeleton /> : <View style={styles.tile} />}
         </View>
       ))}
     </View>
   );
 });
-

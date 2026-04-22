@@ -86,7 +86,8 @@ export const ComingSoonOverlay = React.memo(function ComingSoonOverlay({
       transparent
       animationType="fade"
       onRequestClose={onClose}
-      statusBarTranslucent>
+      statusBarTranslucent
+    >
       <Pressable style={styles.overlay} onPress={onClose}>
         <Pressable onPress={() => undefined} style={styles.card}>
           <View style={styles.iconWrap}>

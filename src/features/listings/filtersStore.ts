@@ -8,8 +8,8 @@ type FiltersState = {
   replaceFilters: (next: Filters) => void;
 };
 
-export const useFiltersStore = create<FiltersState>((set) => ({
+export const useFiltersStore = create<FiltersState>(set => ({
   filters: DEFAULT_FILTERS,
-  setFilters: (next) => set((s) => ({ filters: { ...s.filters, ...next } })),
-  replaceFilters: (next) => set({ filters: next }),
+  setFilters: next => set(s => ({ filters: { ...s.filters, ...next } })),
+  replaceFilters: next => set({ filters: next }),
 }));

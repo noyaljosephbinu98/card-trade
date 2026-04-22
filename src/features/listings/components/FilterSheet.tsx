@@ -125,7 +125,7 @@ export function FilterSheet({
   );
 
   const setDraftField = useCallback(<K extends keyof Filters>(key: K, value: Filters[K]) => {
-    setDraft((prev) => ({ ...prev, [key]: value }));
+    setDraft(prev => ({ ...prev, [key]: value }));
   }, []);
 
   const apply = useCallback(() => {
@@ -153,7 +153,8 @@ export function FilterSheet({
       transparent
       animationType="slide"
       onRequestClose={onClose}
-      statusBarTranslucent>
+      statusBarTranslucent
+    >
       <Pressable style={styles.overlay} onPress={onClose}>
         <Pressable onPress={() => undefined}>
           <SafeAreaView style={styles.sheet} edges={['bottom']}>
@@ -164,12 +165,12 @@ export function FilterSheet({
                 <Text style={styles.close}>Reset</Text>
               </Pressable>
             </View>
-            <KeyboardAvoidingView
-              behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
               <ScrollView
                 style={{ maxHeight: 560 }}
                 contentContainerStyle={styles.scroll}
-                keyboardShouldPersistTaps="handled">
+                keyboardShouldPersistTaps="handled"
+              >
                 <View style={styles.section}>
                   <Text style={styles.label}>Category</Text>
                   <View style={styles.row}>
@@ -178,7 +179,7 @@ export function FilterSheet({
                       active={draft.category == null}
                       onPress={() => setDraftField('category', null)}
                     />
-                    {categories.map((c) => (
+                    {categories.map(c => (
                       <Chip
                         key={c}
                         label={formatCategoryLabel(c)}
@@ -192,7 +193,7 @@ export function FilterSheet({
                 <View style={styles.section}>
                   <Text style={styles.label}>Type</Text>
                   <View style={styles.row}>
-                    {KIND_OPTIONS.map((opt) => (
+                    {KIND_OPTIONS.map(opt => (
                       <Chip
                         key={opt.id}
                         label={opt.label}
@@ -208,7 +209,7 @@ export function FilterSheet({
                   <View style={styles.priceRow}>
                     <TextInput
                       value={priceToText(draft.minPrice)}
-                      onChangeText={(t) => setDraftField('minPrice', textToPrice(t))}
+                      onChangeText={t => setDraftField('minPrice', textToPrice(t))}
                       keyboardType="numeric"
                       placeholder="Min"
                       placeholderTextColor={theme.colors.textTertiary}
@@ -218,7 +219,7 @@ export function FilterSheet({
                     />
                     <TextInput
                       value={priceToText(draft.maxPrice)}
-                      onChangeText={(t) => setDraftField('maxPrice', textToPrice(t))}
+                      onChangeText={t => setDraftField('maxPrice', textToPrice(t))}
                       keyboardType="numeric"
                       placeholder="Max"
                       placeholderTextColor={theme.colors.textTertiary}
@@ -238,7 +239,7 @@ export function FilterSheet({
                         active={draft.gradingCompany == null}
                         onPress={() => setDraftField('gradingCompany', null)}
                       />
-                      {gradingCompanies.map((c) => (
+                      {gradingCompanies.map(c => (
                         <Chip
                           key={c}
                           label={c}
@@ -253,7 +254,7 @@ export function FilterSheet({
                 <View style={styles.section}>
                   <Text style={styles.label}>Sort by</Text>
                   <View style={styles.row}>
-                    {SORT_OPTIONS.map((opt) => (
+                    {SORT_OPTIONS.map(opt => (
                       <Chip
                         key={opt.id}
                         label={opt.label}

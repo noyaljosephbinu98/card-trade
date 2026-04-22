@@ -11,8 +11,8 @@ import type { RootStackParamList } from './types';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export function RootNavigator() {
-  const currentUserId = useAuthStore((s) => s.currentUserId);
-  const hasHydrated = useAuthStore((s) => s.hasHydrated);
+  const currentUserId = useAuthStore(s => s.currentUserId);
+  const hasHydrated = useAuthStore(s => s.hasHydrated);
   const isAuthed = currentUserId != null;
 
   // Block the nav tree on the first run until AsyncStorage replays the

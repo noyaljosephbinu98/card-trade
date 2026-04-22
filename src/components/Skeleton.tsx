@@ -13,13 +13,7 @@ type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
-export function Skeleton({
-  width = '100%',
-  height = 16,
-  radius,
-  tone = 'surface',
-  style,
-}: Props) {
+export function Skeleton({ width = '100%', height = 16, radius, tone = 'surface', style }: Props) {
   const theme = useTheme();
   const opacity = useRef(new Animated.Value(0.45)).current;
 

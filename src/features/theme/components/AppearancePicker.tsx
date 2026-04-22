@@ -12,8 +12,8 @@ const OPTIONS: readonly { id: ThemeMode; label: string }[] = [
 
 export const AppearancePicker = React.memo(function AppearancePicker() {
   const theme = useTheme();
-  const mode = useThemeStore((s) => s.mode);
-  const setMode = useThemeStore((s) => s.setMode);
+  const mode = useThemeStore(s => s.mode);
+  const setMode = useThemeStore(s => s.setMode);
 
   const styles = useMemo(
     () =>
@@ -55,7 +55,7 @@ export const AppearancePicker = React.memo(function AppearancePicker() {
     <View>
       <Text style={styles.label}>Appearance</Text>
       <View style={styles.row}>
-        {OPTIONS.map((opt) => {
+        {OPTIONS.map(opt => {
           const active = mode === opt.id;
           return (
             <Pressable
@@ -64,7 +64,8 @@ export const AppearancePicker = React.memo(function AppearancePicker() {
               style={[styles.chip, active && styles.chipActive]}
               accessibilityRole="button"
               accessibilityState={{ selected: active }}
-              accessibilityLabel={`Set theme to ${opt.label}`}>
+              accessibilityLabel={`Set theme to ${opt.label}`}
+            >
               <Text style={[styles.chipText, active && styles.chipTextActive]}>{opt.label}</Text>
             </Pressable>
           );

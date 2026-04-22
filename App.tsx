@@ -25,9 +25,9 @@ const queryClient = new QueryClient({
 function AppShell() {
   const theme = useTheme();
   const navTheme = useMemo(() => buildNavTheme(theme), [theme]);
-  const isAuthed = useAuthStore((s) => s.currentUserId != null);
-  const setPending = usePendingLinkStore((s) => s.setPending);
-  const consumePending = usePendingLinkStore((s) => s.consume);
+  const isAuthed = useAuthStore(s => s.currentUserId != null);
+  const setPending = usePendingLinkStore(s => s.setPending);
+  const consumePending = usePendingLinkStore(s => s.consume);
 
   useEffect(() => {
     const sub = Linking.addEventListener('url', ({ url }) => {
@@ -38,7 +38,11 @@ function AppShell() {
     });
     (async () => {
       const initial = await Linking.getInitialURL();
-      if (initial && initial.startsWith(`${URL_SCHEME}://`) && !useAuthStore.getState().currentUserId) {
+      if (
+        initial &&
+        initial.startsWith(`${URL_SCHEME}://`) &&
+        !useAuthStore.getState().currentUserId
+      ) {
         setPending(initial);
       }
     })();

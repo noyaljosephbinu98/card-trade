@@ -24,5 +24,5 @@ export function useListingsQuery() {
 export function useListingById(id: string | null | undefined): Listing | undefined {
   const { data } = useListingsQuery();
   if (!id || !data) return undefined;
-  return data.find((l) => l.id === id);
+  return data.find(l => l.id === id);
 }

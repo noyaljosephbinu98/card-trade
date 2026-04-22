@@ -15,13 +15,7 @@ type Props = {
   tone?: 'default' | 'danger';
 };
 
-export function EmptyState({
-  title,
-  subtitle,
-  actionLabel,
-  onAction,
-  tone = 'default',
-}: Props) {
+export function EmptyState({ title, subtitle, actionLabel, onAction, tone = 'default' }: Props) {
   const theme = useTheme();
 
   const borderColor = tone === 'danger' ? theme.colors.danger : theme.colors.border;

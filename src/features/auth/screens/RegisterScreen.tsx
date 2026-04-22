@@ -25,7 +25,7 @@ type Props = NativeStackScreenProps<AuthStackParamList, 'Register'>;
 
 export function RegisterScreen({ navigation }: Props) {
   const theme = useTheme();
-  const register = useAuthStore((s) => s.register);
+  const register = useAuthStore(s => s.register);
   const [submitting, setSubmitting] = useState(false);
   const [pwVisible, setPwVisible] = useState(false);
   const [confirmVisible, setConfirmVisible] = useState(false);
@@ -62,19 +62,19 @@ export function RegisterScreen({ navigation }: Props) {
     <SafeAreaView style={styles.safe}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={styles.flex}>
+        style={styles.flex}
+      >
         <ScrollView
           contentContainerStyle={styles.scroll}
           keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}>
+          showsVerticalScrollIndicator={false}
+        >
           <Text style={styles.wordmark}>AltLite</Text>
 
           <Text style={styles.heroTitle} accessibilityRole="header">
             Create account
           </Text>
-          <Text style={styles.heroSubtitle}>
-            Your saved listings and portfolio stay with you.
-          </Text>
+          <Text style={styles.heroSubtitle}>Your saved listings and portfolio stay with you.</Text>
 
           <View style={styles.form}>
             <Controller
@@ -130,11 +130,12 @@ export function RegisterScreen({ navigation }: Props) {
                   placeholder="••••••••"
                   rightAdornment={
                     <Pressable
-                      onPress={() => setPwVisible((v) => !v)}
+                      onPress={() => setPwVisible(v => !v)}
                       hitSlop={8}
                       accessibilityRole="button"
                       accessibilityState={{ selected: pwVisible }}
-                      accessibilityLabel={pwVisible ? 'Hide password' : 'Show password'}>
+                      accessibilityLabel={pwVisible ? 'Hide password' : 'Show password'}
+                    >
                       <Text style={styles.toggleText}>{pwVisible ? 'Hide' : 'Show'}</Text>
                     </Pressable>
                   }
@@ -161,13 +162,14 @@ export function RegisterScreen({ navigation }: Props) {
                   onSubmitEditing={handleSubmit(onSubmit)}
                   rightAdornment={
                     <Pressable
-                      onPress={() => setConfirmVisible((v) => !v)}
+                      onPress={() => setConfirmVisible(v => !v)}
                       hitSlop={8}
                       accessibilityRole="button"
                       accessibilityState={{ selected: confirmVisible }}
                       accessibilityLabel={
                         confirmVisible ? 'Hide confirmation password' : 'Show confirmation password'
-                      }>
+                      }
+                    >
                       <Text style={styles.toggleText}>{confirmVisible ? 'Hide' : 'Show'}</Text>
                     </Pressable>
                   }
@@ -190,7 +192,8 @@ export function RegisterScreen({ navigation }: Props) {
             hitSlop={8}
             accessibilityRole="button"
             accessibilityLabel="Sign in to an existing account"
-            style={styles.footerLink}>
+            style={styles.footerLink}
+          >
             <Text style={styles.footerText}>
               Already a collector? <Text style={styles.footerAccent}>Sign in</Text>
             </Text>
