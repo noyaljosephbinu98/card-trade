@@ -1,0 +1,33 @@
+---
+description: When to use React.memo / useMemo / useCallback (and when not to)
+alwaysApply: false
+---
+
+# Memoization Checklist
+
+## Memoize
+
+- Row components inside `FlatList` with `React.memo`.
+- Expensive derived state: `useMemo(() => applyFilters(list, filters), [list, filters])`.
+- Callbacks crossing a `memo` boundary: `useCallback(onPress, [deps])`.
+- Zustand selectors already memoized per-subscriber; use narrow selectors.
+- React Query `select` for per-subscriber projection memoization.
+- The React Navigation `theme` prop object (passed to `NavigationContainer`).
+
+## Do NOT memoize
+
+- Trivial leaf components with only primitive props (wrapping costs more than it saves).
+- Static `StyleSheet.create(...)` at module scope (already stable).
+- Callbacks that don't cross a `memo` boundary (wasted allocation).
+
+## Anti-patterns caught by lint
+
+- Inline object/array/function props on memoized children (`eslint-plugin-react-perf`).
+- Stale deps in `useMemo` / `useCallback` (`react-hooks/exhaustive-deps`).
+
+## Theme-aware styles
+
+```typescript
+const theme = useTheme();
+const styles = useMemo(() => makeStyles(theme), [theme]);
+```

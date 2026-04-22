@@ -1,0 +1,30 @@
+---
+description: React Native component and FlatList performance conventions
+globs: **/*.tsx
+alwaysApply: false
+---
+
+# React Native Conventions
+
+## FlatList rules (hot path)
+
+- Always provide stable `keyExtractor` returning a string id directly, not a coerced index.
+- Provide `getItemLayout` when row height is fixed. It unlocks O(1) scroll-to-index and skips measurement passes.
+- Wrap row components in `React.memo`. Pass primitive ids, not inline objects/arrays/functions.
+- Tune props: `initialNumToRender={8}`, `maxToRenderPerBatch={6}`, `updateCellsBatchingPeriod={50}`, `windowSize={7}`, `removeClippedSubviews={true}`.
+- `renderItem` and `keyExtractor` MUST be wrapped in `useCallback` with correct deps.
+
+## Styling
+
+- Styles via `StyleSheet.create`. No inline styles on list rows (breaks `React.memo` equality).
+- When styles depend on theme, wrap in `useMemo(() => makeStyles(theme), [theme])`.
+
+## Platform
+
+- Use `Platform.select` for iOS/Android branches. Don't scatter `Platform.OS === 'ios'` everywhere.
+- Prefer `.ios.tsx` / `.android.tsx` file extensions for large platform divergences.
+
+## Accessibility
+
+- Every `Pressable` / `TouchableOpacity` needs `accessibilityRole` and `accessibilityLabel`.
+- Minimum hitSlop of 8 on icon-only buttons.

@@ -1,0 +1,27 @@
+---
+description: TanStack Query conventions (keys, staleTime, select)
+alwaysApply: false
+---
+
+# React Query Conventions
+
+- Query keys are arrays with a stable first element: `['listings']`, `['listings', 'detail', id]`.
+- Use `select` to memoize projections per-subscriber so normalization runs once per cache update, not per-subscriber.
+- `staleTime` defaults to `10 * 60_000` for list data (rarely changes). Set explicitly; don't rely on defaults.
+- Suspense is OFF in this project — use explicit `isLoading` / `isError`.
+- One `QueryClient` at the app root; never recreate.
+
+## Example
+
+```typescript
+export const listingsKey = ['listings'] as const;
+
+export function useListingsQuery() {
+  return useQuery({
+    queryKey: listingsKey,
+    queryFn: fetchListings,
+    staleTime: 10 * 60_000,
+    select: normalizeListings,
+  });
+}
+```

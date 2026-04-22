@@ -1,0 +1,30 @@
+---
+description: React Navigation typed params and deep link conventions
+alwaysApply: false
+---
+
+# Navigation Conventions
+
+- Each navigator has a typed `ParamList` and declares screens through `createXxxNavigator<ParamList>()`.
+- Global param list lives in `src/app/types.ts` via `RootParamList` module augmentation.
+- The `linking` config in `src/app/linking.ts` is the single source of truth for deep-link URL mapping.
+- Deep-link params are validated with `zod` before being pushed into stores.
+- If an unauthenticated deep link arrives, stash it and replay after login via `Linking.openURL(stashedUrl)`.
+
+## Example linking config
+
+```typescript
+export const linking = {
+  prefixes: ['myalt://', 'https://alt-lite.app'],
+  config: {
+    screens: {
+      Main: {
+        screens: {
+          HomeTab:    { screens: { Home:  'search' } },
+          ProfileTab: { screens: { Saved: 'saved' } },
+        },
+      },
+    },
+  },
+};
+```

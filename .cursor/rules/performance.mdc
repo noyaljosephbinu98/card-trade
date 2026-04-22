@@ -1,0 +1,32 @@
+---
+description: Performance rules for this app (startup, lists, network)
+alwaysApply: false
+---
+
+# Performance Rules
+
+## Startup
+
+- `App.tsx` MUST render synchronously. No `await AsyncStorage.getItem(...)` blocking first paint.
+- Zustand `persist` rehydrates async — render defaults first, swap in persisted state when ready.
+- Use `hasHydrated` gate for any UI that must NOT flash (e.g., theme splash before dark mode pops in).
+
+## Lists
+
+- See `react-native.mdc` FlatList rules. Summary: memoize rows, `getItemLayout`, `keyExtractor` returns string id directly.
+- `removeClippedSubviews={true}` is a big win on Android.
+
+## Network
+
+- React Query with `staleTime: 10 * 60_000` for listing data; don't refetch on every tab switch.
+- Normalize remote data inside `select` so it's memoized per subscriber.
+
+## Transitions
+
+- Use `InteractionManager.runAfterInteractions` to defer non-critical work after navigation animations.
+
+## What to skip
+
+- `useTransition` / concurrent features (overkill for sub-millisecond filter cost with 200 items).
+- Over-memoizing leaf components (allocation + equality check costs more than saved renders).
+- Code splitting (no Metro payoff).

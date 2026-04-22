@@ -1,0 +1,27 @@
+---
+description: Theming (light/dark/system) conventions
+alwaysApply: false
+---
+
+# Theming Conventions
+
+- Single source of truth: `useThemeStore` (zustand, persisted) holds `mode: 'system' | 'light' | 'dark'`.
+- `useTheme()` resolves mode + `useColorScheme()` into a frozen `Theme` object.
+- Never hardcode colors in screens; always `const theme = useTheme();`.
+- `NavigationContainer` receives a memoized `navTheme` built from the resolved palette — headers, tab bar, and default backgrounds flip automatically.
+- `StatusBar barStyle` mirrors the resolved mode.
+- `toggle()` is binary (light <-> dark). Three-way `setMode(...)` is only exposed in Profile.
+
+## Memoized theme-aware styles
+
+```typescript
+function Screen() {
+  const theme = useTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
+  return <View style={styles.container} />;
+}
+
+const makeStyles = (t: Theme) => StyleSheet.create({
+  container: { backgroundColor: t.colors.bg, padding: t.spacing.md },
+});
+```

@@ -1,0 +1,33 @@
+---
+description: Zustand store conventions (selectors, persistence)
+alwaysApply: false
+---
+
+# Zustand Conventions
+
+- One store per domain (auth, saved, filters, theme). Never a single "app store."
+- Components subscribe via narrow selectors: `useAuthStore(s => s.user)`.
+- Multi-field selectors use `shallow`: `useAuthStore(s => ({ a: s.a, b: s.b }), shallow)`.
+- Persisted stores use `zustand/middleware`'s `persist` with AsyncStorage.
+- Non-JSON values (Sets, Maps) need custom `serialize` / `deserialize` (AsyncStorage is JSON).
+- For operations outside React, use `useStore.getState()` / `useStore.setState()` — never `new Store()`.
+
+## Example
+
+```typescript
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      user: null,
+      login: async (email, password) => { /* ... */ },
+      logout: () => set({ user: null }),
+    }),
+    { name: 'auth', storage: createJSONStorage(() => AsyncStorage) },
+  ),
+);
+
+function Header() {
+  const user = useAuthStore(s => s.user);
+  // ...
+}
+```

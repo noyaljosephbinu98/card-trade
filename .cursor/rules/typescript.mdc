@@ -1,0 +1,28 @@
+---
+description: TypeScript strictness and type conventions
+globs: **/*.ts
+alwaysApply: false
+---
+
+# TypeScript Conventions
+
+- `strict: true`, `noUncheckedIndexedAccess: true` enforced in tsconfig.
+- No `any`. Use `unknown` + narrowing, or proper generics.
+- Use discriminated unions for polymorphic shapes (e.g., `Listing` with `kind: 'FIXED_PRICE' | 'AUCTION'`).
+- Validate all data from untrusted boundaries with `zod` (network responses, deep-link params, form input).
+- Prefer `type` over `interface` unless declaration merging is required.
+- Type-only imports use `import type { X } from '...'` (enforced via `@typescript-eslint/consistent-type-imports`).
+
+## Example — discriminated union
+
+```typescript
+type BaseListing = { id: string; itemName: string; /* ... */ };
+type FixedPriceListing = BaseListing & { kind: 'FIXED_PRICE'; price: number };
+type AuctionListing    = BaseListing & { kind: 'AUCTION'; currentBid: number; expiresAtEpoch: number };
+export type Listing = FixedPriceListing | AuctionListing;
+
+function renderPrice(l: Listing) {
+  if (l.kind === 'AUCTION') return formatCurrency(l.currentBid);
+  return formatCurrency(l.price);
+}
+```
